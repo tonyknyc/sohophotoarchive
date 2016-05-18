@@ -1,0 +1,20 @@
+extends layout
+
+include _includes/sharedHTMLfunctions
+
+block content
+
+    #spg_multicol.container-fluid
+        each photog in photographers
+            .list-item 
+                a.detail-link(href="/photographer/#{photog._id}")=photog.fname + " " + photog.lname
+    script
+        //- this is clientside script to add jwt to a secured detail page 
+        //- when user navigates there
+        |   $('a.detail-link').on('click',function(e){
+        |       var path = $(this).attr('href');
+        |       var token = localStorage['spgarchive-token'];
+        |       if (token != undefined) {
+        |           e.originalEvent.currentTarget.href = path + '?t='+ token;
+        |       }
+        |   });

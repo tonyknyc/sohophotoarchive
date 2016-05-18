@@ -1,0 +1,80 @@
+doctype html
+html
+  head
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title= title
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap-theme.min.css')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    script(src='/javascripts/jquery-1.12.3.min.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
+    script(src='/javascripts/auth.js')
+
+    - if (photogInfo != undefined && photogInfo.bio != undefined)
+      #theModalBio(class="modal fade")
+          .modal-dialog.modal-lg
+              .modal-content
+                  .modal-body.modal-body-scroll!= photogInfo.bio
+
+    nav.navbar.navbar-default
+        .container
+            ul.nav.navbar-nav
+              li
+                a.navlink(href="/") Photographers 
+              li
+                a.navlink(href="/soloshows") Member Shows
+              li
+                a.navlink(href="/groupshows") Group Shows
+              li
+                a.navlink(href="/edit") Admin
+            script
+                //- this is clientside script to hilite correct navbar link 
+                | console.log(window.location.pathname);    
+                | $( "a.navlink" ).each(function( index ) {
+                |   if ($(this).attr('href') === window.location.pathname) {
+                |     $(this).parent().addClass('active');
+                |   }
+                | });
+            ul.nav.navbar-nav.navbar-right
+              li#userName.navbar-text
+              li.dropdown
+                a#logOut(href="#") Logout
+                a#logIn.dropdown-toggle(href="#", data-toggle="dropdown") Login
+                  span.caret
+                ul#login-dp.dropdown-menu.collapse
+                  li
+                    .row
+                      .col-md-12
+                        form#loginForm.form
+                          div#usernameFG.form-group
+                            label.sr-only(for="username") | Email address
+                            input.form-control(type="email", id="username", placeholder="Email address", required)
+                            span.help-block
+                          dic#passwordFG.form-group
+                            label.sr-only(for="password") | Password
+                            input.form-control(type="password", id="password", placeholder="Password", required)
+                            span.help-block
+                          .form-group
+                            button.btn.btn-primary.btn-block(type="submit") Sign in
+    .container
+        .page-header.text-center
+            a(href='/')
+                img#logo.img-responsive(src='/images/logo.png')
+            h1#spg_pgTitle= title
+            .text-center.inline
+            -if (photogInfo != undefined && photogInfo.bio != undefined)
+              a.btn(data-toggle="modal", href="#theModalBio")
+                span.header-icon.glyphicon.glyphicon-info-sign
+            -if (photogInfo != undefined && photogInfo.email != undefined)
+              a(href="mailto:#{photogInfo.email}")
+                span.glyphicon.glyphicon-envelope
+            -if (photogInfo != undefined && photogInfo.website != undefined)
+              a(href="#{photogInfo.website}", target="_blank")
+                span.glyphicon.glyphicon-globe
+            div#loginWarn.text-warning.text-center= warning
+
+    .container
+
+        block content
+

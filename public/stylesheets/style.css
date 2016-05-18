@@ -1,0 +1,160 @@
+
+
+body {
+	font-size: 1em;
+	line-height: 2em;
+	background-color: #7F7F7F;
+}
+
+.navbar {
+	margin-bottom: 0px;
+}
+
+.navbar-text {
+	margin-left: 20px;
+}
+
+
+.navbar-right {
+	margin-right: 0px;
+}
+
+
+.navbar-default, .page-header  {
+	background-image: -moz-linear-gradient(top, #ffffff, #efefef);
+	background-image: -ms-linear-gradient(top, #ffffff, #efefef);
+	background-image: -o-linear-gradient(top, #ffffff, #efefef);
+	background-image: -webkit-gradient(linear, center top, center bottom, from(#ffffff), to(#efefef));
+	background-image: -webkit-linear-gradient(top, #ffffff, #efefef);
+	background-image: linear-gradient(top, #ffffff, #efefef);
+	color: #7F7F7F;
+}
+
+.page-header {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-bottom: 0px;
+}
+
+
+img#logo {
+	padding: 20px 0px 0px 20px;
+}
+
+
+#login-dp{
+    min-width: 250px;
+    padding: 14px 14px 0;
+}
+
+#spg_pgTitle {
+	margin-top: 20px;
+	margin-left: 20px;
+	font-family: "garamond-premier-pro-display",serif;
+	font-style: italic;
+	color: #7f7f7f;
+}
+
+.glyphicon-envelope, .glyphicon-globe {
+	font-size: 2em;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+span.header-icon.glyphicon-info-sign {
+	font-size: 1.4em;
+	margin-left: 20px;
+	margin-right: 10px;
+}
+
+
+#theModalBio {
+	font-size: 2em;
+	line-height: 1.5em;
+}
+
+
+#spg_multicol {
+    background-color:white;
+    padding: 5px;
+    font-size: 1.5em;
+}
+
+
+@media (max-width: 3000px){
+	#spg_multicol {
+	    column-count:3;
+	    -moz-column-count:3;
+	    -webkit-column-count: 3;
+	}
+}
+
+@media (max-width: 768px){
+	#spg_multicol {
+	    column-count:2;
+	    -moz-column-count:2;
+	    -webkit-column-count: 2;
+	}
+}
+
+@media (max-width: 360px){
+	#spg_multicol {
+		padding-left: 10px;
+	    column-count:1;
+	    -moz-column-count:1;
+	    -webkit-column-count: 1;
+	}
+}
+
+
+
+.img-thumbnail {
+	max-width: 200px;
+	max-height: 200px;
+}
+
+.panel {
+	background-color: #bFbFbF;
+}
+
+.list-inline {
+	padding-left: 10px;
+}
+
+.panel-light {
+	background-color: #dFdFdF;
+}
+
+.glyphicon-info-sign {
+	vertical-align: top;
+}
+
+.btn {
+	padding-top: 0px;
+}
+
+#ArtistStatement {
+	padding: 20px;
+	line-height: 2em;
+}
+
+.modal-body {
+	margin: 2px;
+}
+
+.modal-body-scroll {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.bg-black {
+	background-color: black;
+}
+
+h3.carousel-caption > span {
+	color:#6c6c;
+}
+
+.carousel-caption {
+	padding-bottom: 10px;
+}

@@ -1,0 +1,55 @@
+extends layout
+
+include _includes/sharedHTMLfunctions
+
+block content
+
+    .row
+        div(class= soloshowPanelclass)
+            .panel.panel-primary
+                .panel-heading
+                    h2.panel-title Solo Shows
+                .panel-body
+                    each sshow, sidx in soloshows
+                        .panel.panel-info.panel-light
+                            .panel-heading 
+                                h3.panel-title.text-center
+                                    small.pull-left
+                                        +formatDate(sshow.startdate)
+                                    | #{sshow.title}
+                                    - if (sshow.statement)
+                                        span.pull-right
+                                            a(href="#ArtistStatement", class="btn btn-link", data-toggle="collapse")
+                                                span.glyphicon.glyphicon-info-sign
+                                - if (sshow.statement)
+                                    h4#ArtistStatement.collapse
+                                        | !{sshow.statement.replace(/\n/g, '<br/>')}
+                            .panel-body
+                                ul.list-inline
+                                    each mprint, pidx in sshow.prints
+                                        li.list-item
+                                            a.btn(data-toggle="modal", href="#theModalSoloshow" data-showidx="#{sidx}" data-printidx="#{pidx}")
+                                                img.img-thumbnail(src="#{mprint.imgpath}")
+        div(class= groupprintPanelclass)
+            .panel.panel-primary
+                .panel-heading 
+                    h2.panel-title Group Prints
+                .panel-body
+                    ul.list-inline
+                        each gprint, idx in groupprints
+                            li.list-item
+                                a.btn(href="#theModalGP",  data-toggle="modal", data-idx="#{idx}")
+                                    img.img-thumbnail(src="#{gprint.imgpath}")
+
+    #theModalSoloshow(class="modal fade")
+        .modal-dialog.modal-lg
+            .modal-content.bg-black
+                .modal-body
+                    //- this comment will not show up clientside because of the hyphen
+                    +createCarouselFromSoloshow(clientJS_sshows)
+
+    #theModalGP(class="modal fade")
+        .modal-dialog.modal-lg
+            .modal-content
+                .modal-body.bg-black
+                    +createCarouselFromGroupPrints(groupprints)
