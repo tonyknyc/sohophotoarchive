@@ -114,10 +114,18 @@ function setLoginNav() {
         $('li#userName').text(payload.name);
         $('a#logIn').hide();
         $('a#logOut').show();
+
+        if (payload.admin && payload.enabled) {
+            $('li#admin').show();
+        } else {
+            $('li#admin').hide();
+        }
+
     } else {
         $('li#userName').text('');
         $('a#logIn').show();
         $('a#logOut').hide();
+        $('li#admin').hide();
     }
 }
 
