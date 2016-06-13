@@ -18,7 +18,14 @@ html
                   .modal-body.modal-body-scroll!= photogInfo.bio
 
     nav.navbar.navbar-default
-        .container
+        .container-fluid
+          .navbar-header
+            button(type="button", class="navbar-toggle", data-toggle="collapse", data-target="#main-nav")
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+          #main-nav.navbar-collapse.collapse
             ul.nav.navbar-nav
               li
                 a.navlink(href="/") Photographers 

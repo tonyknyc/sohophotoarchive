@@ -21,49 +21,37 @@ mixin groupPrintDesc(print)
     =output
 
 mixin createCarouselFromSoloshow(shows)
-    script
-        | $('#theModalSoloshow').on('show.bs.modal', function (e) {
-        |   $('.modal-body').css('height', $(window).height()*0.9);
-        |   var srcElemSolo = $(e.relatedTarget);
-        |   var prints = sshows[srcElemSolo.data('showidx')].prints;
-        |   var printidx = srcElemSolo.data('printidx');
-        |   var indicatorHTML = "";
-        |   var imageHTML = "";
-        |   prints.forEach( function(print, idx) {
-        |       indicatorHTML += '<li data-target="#carouselSoloshow" data-slide-to="'+idx+'" ';
-        |       indicatorHTML += (printidx === idx) ? 'class="active" ' : '';
-        |       indicatorHTML += ' />';
-        |       imageHTML += '<div class="item';
-        |       imageHTML += (printidx === idx) ? ' active' : '';
-        |       imageHTML += '"><img class="center-block img-responsive" src="'+print.imgpath+'" />';
-        |       imageHTML += '<h3 class="carousel-caption">'+print.title+'<br /><span style="font-size:.75em;">';
-        |       imageHTML += (print.medium != undefined) ? print.medium + ', ' : '';
-        |       if (print.height != undefined && print.width != undefined) 
-        |           imageHTML += print.height + '" x ' + print.width + '", ';
-        |       imageHTML += (print.priceframed != undefined) ? '$' + print.priceframed + ' framed' : '';
-        |       if (print.priceframed != undefined && print.priceunframed != undefined) 
-        |           imageHTML += ', ';
-        |       imageHTML += (print.unpriceframed != undefined) ? '$' + print.unpriceframed + ' unframed' : '';
-        |       imageHTML += '</span></h3></div>';
-        |   });
-        |   $('#soloPrintIndicators').empty().append(indicatorHTML);
-        |   $('#soloPrintImages').empty().append(imageHTML);
-        |   $('div.item > img.img-responsive').css('max-height', $(window).height()*0.85);
-        |   $('div.item > img.img-responsive').css('max-width', $(window).width()*0.85);
-        |   $('div.item > img.img-responsive').css('padding-top', $(window).height()*0.02);
-        | });
     div#carouselSoloshow(class="carousel slide bg-black", data-ride="carousel")
         #soloPrintImages.carousel-inner
         a(class="left carousel-control", href="#carouselSoloshow" data-slide="prev")
             span.glyphicon.glyphicon-chevron-left
         a(class="right carousel-control", href="#carouselSoloshow" data-slide="next")
             span.glyphicon.glyphicon-chevron-right
-    script
-        | var sshows = !{shows};
-        | $('#carouselSoloshow').bind('slide.bs.carousel', function (e) {
-        |   $('.item').css('max-height', $(window).height()*0.9);
-        |   $('.item').css('max-width', $(window).width()*0.9);
-        | });
+        script
+            | var sshows = !{shows};
+            | $('#theModalSoloshow').on('show.bs.modal', function (e) {
+            |   var srcElemSolo = $(e.relatedTarget);
+            |   var prints = sshows[srcElemSolo.data('showidx')].prints;
+            |   var printidx = srcElemSolo.data('printidx');
+            |   var imageHTML = "";
+            |   prints.forEach( function(print, idx) {
+            |       imageHTML += '<div class="item';
+            |       imageHTML += (printidx === idx) ? ' active' : '';
+            |       imageHTML += '"><img class="center-block" ';
+            |       imageHTML += ' src="'+print.imgpath+'" />';
+            |       imageHTML += '<h3 class="carousel-caption">'+print.title+'<br /><span style="font-size:.75em;">';
+            |       imageHTML += (print.medium != undefined) ? print.medium + ', ' : '';
+            |       if (print.height != undefined && print.width != undefined) 
+            |           imageHTML += print.height + '" x ' + print.width + '", ';
+            |       imageHTML += (print.priceframed != undefined) ? '$' + print.priceframed + ' framed' : '';
+            |       if (print.priceframed != undefined && print.priceunframed != undefined) 
+            |           imageHTML += ', ';
+            |       imageHTML += (print.unpriceframed != undefined) ? '$' + print.unpriceframed + ' unframed' : '';
+            |       imageHTML += '</span></h3></div>';
+            |   });
+            |   $('#soloPrintImages').empty().append(imageHTML);
+            | });
+
 
 
 mixin createCarouselFromGroupPrints(prints)
@@ -89,10 +77,37 @@ mixin createCarouselFromGroupPrints(prints)
             | $('#theModalGP').on('show.bs.modal', function (e) {
             |   var srcElem = $(e.relatedTarget);
             |   $('#carouselGP').carousel(srcElem.data('idx'))
-            |   $('.item').css('height', $(window).height()*0.9);
-            |   $('img.center-block').css('max-height', $(window).height()*0.88);
             | });
-            |   $('.modal-body').css('max-height', $(window).height()*0.9);
-            |   $('.item').css('sheight', $(window).height()*0.88);
-            |   $('div.item > img.img-responsive').css('max-height', $(window).height()*0.85);
-            |   $('div.item > img.img-responsive').css('padding-top', $(window).height()*0.06);
+
+mixin createCarouselFromGroupshow(shows)
+    div#carouselGP(class="carousel slide bg-black", data-ride="carousel")
+        #groupPrintImages.carousel-inner
+        a(class="left carousel-control", href="#carouselGP" data-slide="prev")
+            span.glyphicon.glyphicon-chevron-left
+        a(class="right carousel-control", href="#carouselGP" data-slide="next")
+            span.glyphicon.glyphicon-chevron-right
+        script
+            | var sshows = !{shows};
+            | $('#theModalGP').on('show.bs.modal', function (e) {
+            |   var srcElemSolo = $(e.relatedTarget);
+            |   var prints = sshows[srcElemSolo.data('showidx')].prints;
+            |   var printidx = srcElemSolo.data('printidx');
+            |   var imageHTML = "";
+            |   prints.forEach( function(print, idx) {
+            |       imageHTML += '<div class="item';
+            |       imageHTML += (printidx === idx) ? ' active' : '';
+            |       imageHTML += '"><img class="center-block" ';
+            |       imageHTML += ' src="'+print.imgpath+'" />';
+            |       imageHTML += '<h3 class="carousel-caption">'+print.photographer_id.fname+' '+print.photographer_id.lname+'<br />';
+            |       imageHTML +=  print.title+'<br /><span style="font-size:.75em;">';
+            |       imageHTML += (print.medium != undefined) ? print.medium + ', ' : '';
+            |       if (print.height != undefined && print.width != undefined) 
+            |           imageHTML += print.height + '" x ' + print.width + '", ';
+            |       imageHTML += (print.priceframed != undefined) ? '$' + print.priceframed + ' framed' : '';
+            |       if (print.priceframed != undefined && print.priceunframed != undefined) 
+            |           imageHTML += ', ';
+            |       imageHTML += (print.unpriceframed != undefined) ? '$' + print.unpriceframed + ' unframed' : '';
+            |       imageHTML += '</span></h3></div>';
+            |   });
+            |   $('#groupPrintImages').empty().append(imageHTML);
+            | });

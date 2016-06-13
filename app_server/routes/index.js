@@ -7,7 +7,7 @@ var ctrlSohoShows = require('../controllers/shows');
 router.get('/', ctrlSohoPhotographers.homelist);
 router.get('/photographer/:photographerid', ctrlSohoPhotographers.photographerDetails);
 
-router.get('/soloshows', ctrlSohoShows.soloshowlist);
+router.get('/soloshows', ctrlSohoShows.soloshowsList);
 router.get('/groupshows', ctrlSohoShows.groupshowsList);
 
 

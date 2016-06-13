@@ -6,7 +6,7 @@ var apiOptions = {
 
 if (process.env.NODE_ENV === 'production') {
   // change this when uploaded to heroku
-  apiOptions.server = "https://getting-mean-loc8r.herokuapp.com";
+  apiOptions.server = "http://enigmatic-waters-64682.herokuapp.com";
 }
 
 
@@ -31,32 +31,97 @@ var _showError = function (req, res, status) {
 };
 
 
-var renderSoloshows = function(req, res){
+var renderSoloshows = function(req, res, body){
+
+  var message;
+  var warning = '';
+  if (!(body instanceof Array)) {
+    message = "API lookup error";
+   // responseBody = [];
+  } else if (!body.length) {
+    message = "no solo shows found";
+  } else {
+    message = "found "+body.length+" shows";
+  }
 
   res.render('soloshows-list', {
-    title: 'Member Shows TBD'
+    title: 'Recent Member Shows',
+    shows: body,
+    message: message,
+    warning: warning
   });
 };
 
 
 /* GET 'home' page of all active photographers */
-module.exports.soloshowlist = function(req, res){
-  // TBD create and call api
-  renderSoloshows(req, res);
+module.exports.soloshowsList = function(req, res){
+
+  console.log("module.exports.soloshowsList",res.statusCode)
+
+  var requestOptions, path;
+  path = '/api/soloshows';
+  requestOptions = {
+    url : apiOptions.server + path,
+    method : "GET",
+    json : {}
+  };
+
+  request(
+    requestOptions,
+    function(err, response, body) {
+        if (err) {
+          console.log("request for soloshows failed",err);
+        } else {
+          console.log("request returned stuff from api for soloshows");
+          renderSoloshows(req, res, body);
+        }
+    }
+  );
 };
 
 
-var renderGroupshows = function(req, res){
+var renderGroupshows = function(req, res, body){
 
-    var dataObj = {
-      title: "Group Shows TBD"
-    }
-
-    res.render('groupshows-list', dataObj);
+  var message;
+  var warning = '';
+  if (!(body instanceof Array)) {
+    message = "API lookup error";
+   // responseBody = [];
+  } else if (!body.length) {
+    message = "no solo shows found";
+  } else {
+    message = "found "+body.length+" shows";
+  }
+  console.log(message);
+  res.render('groupshows-list', {
+    title: 'Recent Group Shows',
+    shows: body,
+    message: message,
+    warning: warning
+  });
 };
 
 /* GET specific photographer's complete details */
 module.exports.groupshowsList = function(req, res) {
-  // TBD create and call api
-  renderGroupshows(req, res);
+  console.log("module.exports.groupshowsList",res.statusCode)
+
+  var requestOptions, path;
+  path = '/api/groupshows';
+  requestOptions = {
+    url : apiOptions.server + path,
+    method : "GET",
+    json : {}
+  };
+  console.log(requestOptions);
+  request(
+    requestOptions,
+    function(err, response, body) {
+        if (err) {
+          console.log("request for groupshows failed",err);
+        } else {
+          console.log("request returned stuff from api for groupshows");
+          renderGroupshows(req, res, body);
+        }
+    }
+  );
 };

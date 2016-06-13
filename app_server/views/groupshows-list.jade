@@ -4,4 +4,20 @@ include _includes/sharedHTMLfunctions
 
 block content
 
-    .container-fluid Coming Soon
+	.spg_content.container-fluid
+		- var clientJS_sshows = JSON.stringify(shows)
+		- var newMonth = 0;
+		each show, idx in shows
+			.list-item
+				- if (newMonth != show.startdate) 
+					- newMonth = show.startdate
+					div.monthheader
+						+formatDate(show.startdate)
+				a.btn(data-toggle="modal", href="#theModalGP" data-showidx="#{idx}" data-printidx="0")=show.title
+
+	#theModalGP(class="modal fade")
+		.modal-dialog.modal-lg
+			.modal-content
+				.modal-body.bg-black
+					+createCarouselFromGroupshow(clientJS_sshows)
+

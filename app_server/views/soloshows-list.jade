@@ -3,3 +3,32 @@ extends layout
 include _includes/sharedHTMLfunctions
 
 block content
+
+	.spg_content.container-fluid
+		- var clientJS_sshows = JSON.stringify(shows)
+		- var newMonth = 0;
+		each show, idx in shows
+			.list-item
+				- if (newMonth != show.startdate) 
+					- newMonth = show.startdate
+					div.monthheader
+						+formatDate(show.startdate)
+				a.btn(data-toggle="modal", href="#theModalSoloshow" data-showidx="#{idx}" data-printidx="0")=show.title
+				| : 
+				a.btn.detail-link(href="/photographer/#{show.photographer_id._id}")=show.photographer_id.fname + ' ' + show.photographer_id.lname
+
+	#theModalSoloshow(class="modal fade")
+		.modal-dialog.modal-lg
+			.modal-content.bg-black
+				.modal-body
+					+createCarouselFromSoloshow(clientJS_sshows)
+	script
+		//- this is clientside script to add jwt to a secured detail page 
+		//- when user navigates there
+		|   $('a.detail-link').on('click',function(e){
+		|       var path = $(this).attr('href');
+		|       var token = localStorage['spgarchive-token'];
+		|       if (token != undefined) {
+		|           e.originalEvent.currentTarget.href = path + '?t='+ token;
+		|       }
+		|   });
